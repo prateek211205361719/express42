@@ -110,14 +110,22 @@
              })
 
              io.on('creteBlob', function(data){
-                
-                var arrayBufferView = new Uint8Array(data.blobValue);
-                var blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
+              
+               var arrayBufferView = new Uint8Array(data.blobValue);
+                var blob = new Blob( [ arrayBufferView ], { type: data.type } );
                 var urlCreator = window.URL || window.webkitURL;
                 var imageUrl = urlCreator.createObjectURL( blob );
-                var img = document.createElement('img');
-                img.src = imageUrl;
-                data.image = img;
+                if(data.type.indexOf('image') > -1){
+                    var img = document.createElement('img');
+                    img.src = imageUrl;
+                    data.image = img;
+                }else{
+                    var a = document.createElement('a');
+                    a.href = imageUrl;
+                    a.download = data.name;
+                    a.innerHTML = data.name;
+                    data.image = a;
+                }
                 var obj = createMessageBock(data);
                 var chatDiv = getDomObject("chatDiv");
                 chatDiv.appendChild(obj);
@@ -151,6 +159,8 @@
                      var obj =  {from:'User', msg:''};
                      fileReader.onload = function (e) { 
                           obj.blobValue = fileReader.result;
+                          obj.type = file.type;
+                          obj.name = file.name;
                           io.emit('creteBlob', obj, function(){
                          
                          });

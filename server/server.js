@@ -26,6 +26,7 @@ socket_io.on('connection', function (socket) {
            
     });
     socket.on('creteBlob', function(msg, callback){
+        console.log(msg);
         msg.createdAt = new Date().getTime();
         console.log(Buffer.isBuffer(msg.blobValue));
          socket.broadcast.emit('creteBlob', msg);
