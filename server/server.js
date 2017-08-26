@@ -25,6 +25,12 @@ socket_io.on('connection', function (socket) {
          callback();
            
     });
+    socket.on('creteBlob', function(msg, callback){
+        msg.createdAt = new Date().getTime();
+        console.log(Buffer.isBuffer(msg.blobValue));
+         socket.broadcast.emit('creteBlob', msg);
+         callback();
+    });
 });
 
 server.listen(port, function(){
