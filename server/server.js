@@ -6,7 +6,7 @@ var _ = require('lodash');
 var io = require('socket.io')
 var http = require('http');
 var { createMessage } = require('./utils/createMessage.js');
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 const path = require('path');
 var resourceUr  = path.join(__dirname, '../public');
 app.use(express.static(resourceUr));
