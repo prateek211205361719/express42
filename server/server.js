@@ -16,7 +16,7 @@ var resourceUr  = path.join(__dirname, '../public');
 app.use(express.static(resourceUr));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
-
+var { Users }  = require('./utils/user.js');
 //app.use(.cookieparser());
 
 var server = http.createServer(app);
@@ -24,6 +24,7 @@ app.get('/', (re, res) => {
     res.sendFile('index.html');
 });
 var socket_io = io(server);
+ var users = new Users();
 var room;
 var user;
 app.post('/upload', function(req, res){
@@ -38,13 +39,16 @@ app.post('/upload', function(req, res){
 socket_io.on('connection', function (socket) {
    
     socket.on('join', function(params, callback){
-        room = params.room;
-        user = params.name;
+      
         if(isRealString(params.name) && isRealString(params.room)){
             socket.join(params.room);
+            users.removeuser(socket.id);
+            users.addUser(socket.id, params.name, params.room);
+            socket_io.to(params.room).emit('updateUser', users.getUserList(params.room));
+            
             socket.emit('admin_message', createMessage('Admin','Welcome to chat')); 
-            socket.broadcast.to(params.room).emit('chat_team_mssage', createMessage('Admin', 'new user joined'));
-            //socket.to("sanu").emit('chat_team_mssage', createMessage('Admin', 'new user joined'));
+            socket.broadcast.to(params.room).emit('chat_team_mssage', createMessage('Admin', `${params.name} has joined`));
+           
             
         }else{
             callback('Value is not proper');
@@ -53,7 +57,9 @@ socket_io.on('connection', function (socket) {
     });
 
     socket.on('createMessage', function(msg, callback){
-         socket.broadcast.to(room).emit('userMessage', createMessage(msg.from, msg.msg));
+         var user = users.getUser(socket.id);
+         console.log(user);
+         socket.broadcast.to(user[0].room).emit('userMessage', createMessage(msg.from, msg.msg));
          callback();
            
     });
@@ -62,6 +68,16 @@ socket_io.on('connection', function (socket) {
         socket.broadcast.to(room).emit('creteBlob', msg);
         
     });
+    socket.on('disconnect', function(){
+        var user = users.removeuser(socket.id);
+        if(user){
+             socket_io.to(user.room).emit('updateUser', users.getUserList(user.room));
+             socket_io.to(user.room).emit('admin_message', createMessage('Admin', `${user.name} has left the ${user.room}`));
+            
+        }
+       
+    });
+
 });
 
 server.listen(port, function(){

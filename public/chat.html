@@ -15,16 +15,8 @@
                 </div>
             </div>
             <div class="row" style="margin-top:2%;">
-                 <div class="conversation-wrap col-lg-3">
-                     <div class="media conversation">
-                        <a class="pull-left" href="#">
-                            <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 50px; height: 50px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC">
-                        </a>
-                        <div class="media-body">
-                            <h5 class="media-heading">Naimish Sakhpara</h5>
-                            <small>Hello</small>
-                        </div>
-                     </div>
+                 <div class="conversation-wrap col-lg-3" id="users">
+                     
                 </div>
 
                <div class="message-wrap col-lg-8" >
@@ -59,6 +51,18 @@
                 </div>
             </div>
         </script>
+        <script id="userList" type="text/template">
+            <div class="media conversation">
+                <a class="pull-left" href="#">
+                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 50px; height: 50px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC">
+                </a>
+                <div class="media-body">
+                    <h5 class="media-heading">{{ name }}</h5>
+                    <small>Joined</small>
+                </div>
+            </div>
+        </script>
+        
 
 
         <script src="/socket.io/socket.io.js"></script>
@@ -77,7 +81,6 @@
                 var obj = new Object();
                 for (var i=0;i<arr.length;i++){
                      var queryvalue = arr[i].split('=');
-                     console.log(queryvalue);
                     if(i == 0){
                          obj[queryvalue[0]] = queryvalue[1];
                     }else{
@@ -103,7 +106,6 @@
             };
 
             function createObject(obj){
-                console.log(obj);
                 var div =document.createElement(div);
                 div.innerHTML = obj;
                 return div;
@@ -120,27 +122,38 @@
                 return createObject(html);
                
             };
+            function createUserListDom(name){
+                   
+                  var template = getDomObject('userList').innerHTML;
+                  var html = Mustache.render(template,{
+                     name:name
+                  });
+                 return createObject(html);
+            }
+            
 
             var io =new io();
 
             io.on('connect', function(){
-                var params = getQueryString();
-                console.log(params);
-                io.emit('join',params, function(err){
-                    if(err){
-                        alert(err);
-                        window.location.href='/';
-                    }else{
-                        console.log('--------noerr----');
-                    }
-                });
+                if(window.location.search.length > 0){
+                    var params = getQueryString();
+                    io.emit('join',params, function(err){
+                        if(err){
+                            alert(err);
+                           
+                        }else{
+                            console.log('--------noerr----');
+                        }
+                    });
+                }else{
+                     window.location.href='/';
+                }
               
             });
             io.on('admin_message',function(msg){
                  admin_message(msg);
             });
             io.on('chat_team_mssage',function(msg){
-                console.log('-----------chat team messge--');
                 admin_message(msg);
              });
              io.on('userMessage', function(msg){
@@ -154,9 +167,6 @@
              io.on('creteBlob', function(data){
                console.log(data.blobValue);
                var arrayBufferView = new Uint8Array(data.blobValue);
-               console.log(arrayBufferView.length);
-                 // var arrayBufferView = new Uint32Array(data.blobValue);
-                   //console.log(arrayBufferView.length);
                 var blob = new Blob( [ arrayBufferView ], { type: data.type } );
                 console.log(blob);
                 var urlCreator = window.URL || window.webkitURL;
@@ -166,6 +176,15 @@
                 var chatDiv = getDomObject("chatDiv");
                 chatDiv.appendChild(obj);
 
+             });
+
+             io.on('updateUser', function(users){
+                 var obj =  getDomObject('users');
+                 obj.innerHTML = '';
+                 for(var i=0;i<users.length;i++){
+                    obj.appendChild(createUserListDom(users[i]));
+                 }
+                console.log(users);
              });
              window.onload = function(){
                  var params = getQueryString();
@@ -200,9 +219,7 @@
                      };
                      var obj =  {from:params.name, msg:''};
                      fileReader.onload = function (e) { 
-                         console.log(fileReader.result);
                           obj.blobValue = fileReader.result;
-                          console.log(obj.blobValue);
                           obj.type = file.type;
                           obj.name = file.name;
                           io.emit('creteBlob', obj, function(){
