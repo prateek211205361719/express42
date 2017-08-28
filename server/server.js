@@ -64,8 +64,9 @@ socket_io.on('connection', function (socket) {
            
     });
     socket.on('creteBlob', function(msg, callback){
+        var user = users.getUser(socket.id);
         msg.createdAt = new Date().getTime();
-        socket.broadcast.to(room).emit('creteBlob', msg);
+        socket_io.to(user[0].room).emit('creteBlob', msg);
         
     });
     socket.on('disconnect', function(){
