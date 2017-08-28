@@ -1,0 +1,223 @@
+
+
+<html>
+    <head>
+         <link rel="stylesheet" href="/css/main.css" />
+         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+         <link href="/css/bootstrap.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+             
+            <div class="row" style="margin-top:1%;">
+                <div class="alert alert-info" id="adminMessage" style="display:none">
+                      <strong>Info!</strong> Indicates a neutral informative change or action.
+                </div>
+            </div>
+            <div class="row" style="margin-top:2%;">
+                 <div class="conversation-wrap col-lg-3">
+                     <div class="media conversation">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 50px; height: 50px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC">
+                        </a>
+                        <div class="media-body">
+                            <h5 class="media-heading">Naimish Sakhpara</h5>
+                            <small>Hello</small>
+                        </div>
+                     </div>
+                </div>
+
+               <div class="message-wrap col-lg-8" >
+                    <div class="msg-wrap" id="chatDiv">
+                    </div>
+                    <div class="send-wrap" style="margin-top:2%;">
+                           <textarea id="txt_message_box" class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
+                    </div>
+                    <div class="btn-panel">
+                        <a   id="sendFile" class=" col-lg-3 btn send-message-btn " role="button">
+                            <i class="fa fa-cloud-upload"></i> 
+                            <input type="file" class="form-control" id="attachedFile" />
+                       </a>
+                        <a  id="send_messgaeBtn" class=" col-lg-4 text-right btn   send-message-btn pull-right" role="button"><i class="fa fa-plus"></i> Send Message</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script id="message_template" type="text/template">
+            <div class="media msg">
+                <a class="pull-left">
+                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 50px; height: 50px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC">
+                </a>
+                <div class="media-body">
+                    <small class="pull-right time"><i class="fa fa-clock-o"></i>{{createdAt}}</small>
+                    <h5 class="media-heading">{{from}}</h5>
+                    <small class="col-lg-10">{{msg}}</small>
+                   <image src="{{imageUrl}}" />
+                   <a href="{{imageUrl}}" target="blank">{{name}}</a>
+                    
+                </div>
+            </div>
+        </script>
+
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="./js/moment.js"></script>
+        <script src="./js/mustach.js"></script>
+        <script>
+            function getDomObject(obj){
+                return document.getElementById(obj);
+            }
+
+            function getQueryString(){
+                var qrStr = window.location.search;
+                var spQrStr = qrStr.substring(1);
+                var arrQrStr = new Array();
+                var arr = spQrStr.split('&');
+                var obj = new Object();
+                for (var i=0;i<arr.length;i++){
+                     var queryvalue = arr[i].split('=');
+                     console.log(queryvalue);
+                    if(i == 0){
+                         obj[queryvalue[0]] = queryvalue[1];
+                    }else{
+                          obj[queryvalue[0]] = queryvalue[1];
+                    }
+                   
+                     
+                }
+                return obj;
+
+            }
+
+            function admin_message(msg){
+                var obj = getDomObject('adminMessage');
+                var content =  '<strong>'+msg.from+'</strong>';
+                content += ' '+msg.msg;
+                obj.innerHTML = content;
+                obj.style.display = 'block';
+                setTimeout(function(){
+                     obj.innerHTML = '';
+                    obj.style.display = 'none';
+                }, 2000);
+            };
+
+            function createObject(obj){
+                console.log(obj);
+                var div =document.createElement(div);
+                div.innerHTML = obj;
+                return div;
+            };
+            function createMessageBock(msg){
+                var template = getDomObject('message_template').innerHTML;
+                var html = Mustache.render(template,{
+                     msg:msg.msg,
+                     from:msg.from,
+                     imageUrl:msg.imageUrl,
+                     name:msg.name,
+                     createdAt:moment(msg.createdAt).format('h mm: a'),
+                });
+                return createObject(html);
+               
+            };
+
+            var io =new io();
+
+            io.on('connect', function(){
+                var params = getQueryString();
+                console.log(params);
+                io.emit('join',params, function(err){
+                    if(err){
+                        alert(err);
+                        window.location.href='/';
+                    }else{
+                        console.log('--------noerr----');
+                    }
+                });
+              
+            });
+            io.on('admin_message',function(msg){
+                 admin_message(msg);
+            });
+            io.on('chat_team_mssage',function(msg){
+                console.log('-----------chat team messge--');
+                admin_message(msg);
+             });
+             io.on('userMessage', function(msg){
+                 console.log(msg);
+                 var obj = createMessageBock(msg);
+                 var chatDiv = getDomObject("chatDiv");
+                 chatDiv.appendChild(obj);
+                
+             })
+
+             io.on('creteBlob', function(data){
+               console.log(data.blobValue);
+               var arrayBufferView = new Uint8Array(data.blobValue);
+               console.log(arrayBufferView.length);
+                 // var arrayBufferView = new Uint32Array(data.blobValue);
+                   //console.log(arrayBufferView.length);
+                var blob = new Blob( [ arrayBufferView ], { type: data.type } );
+                console.log(blob);
+                var urlCreator = window.URL || window.webkitURL;
+                var imageUrl = urlCreator.createObjectURL( blob );
+                data.imageUrl =imageUrl;
+                var obj = createMessageBock(data);
+                var chatDiv = getDomObject("chatDiv");
+                chatDiv.appendChild(obj);
+
+             });
+             window.onload = function(){
+                 var params = getQueryString();
+                var obj =  getDomObject('send_messgaeBtn');
+                obj.addEventListener('click', function(event){
+                    var msg = getDomObject('txt_message_box')
+                    if(msg.value.length > 0){
+                        event.target.innerText = 'Sending...';
+                        var sendMsg ={
+                            from: 'Me',
+                            msg: msg.value,
+                            createdAt: moment(new Date().getTime()).format('h mm: a')
+                        };
+                        var obj = createMessageBock(sendMsg);
+                        sendMsg.from = params.name;
+                        var chatDiv = getDomObject("chatDiv");
+                        chatDiv.appendChild(obj);
+                        io.emit('createMessage',sendMsg, function(){
+                            msg.value= '';
+                            event.target.innerText = 'Send Message';
+                        });
+                    }
+                });
+                var sendFile =  getDomObject('attachedFile');
+                sendFile.addEventListener('change', function(event){
+                     var file = sendFile.files[0];
+                     var params = getQueryString();
+                     var fileReader = new FileReader(); 
+                     fileReader.onerror =function(){
+                         console.log('-----------error--------');
+
+                     };
+                     var obj =  {from:params.name, msg:''};
+                     fileReader.onload = function (e) { 
+                         console.log(fileReader.result);
+                          obj.blobValue = fileReader.result;
+                          console.log(obj.blobValue);
+                          obj.type = file.type;
+                          obj.name = file.name;
+                          io.emit('creteBlob', obj, function(){
+                            console.log('------problem-------');
+                         });
+                     };
+                    fileReader.readAsArrayBuffer(file);
+                
+ 
+               });
+               
+             }
+
+            
+                  
+        </script>
+    </body>
+</html>
