@@ -86,8 +86,10 @@
                 for (var i=0;i<arr.length;i++){
                      var queryvalue = arr[i].split('=');
                     if(i == 0){
-                         obj[queryvalue[0]] = queryvalue[1];
+                         var myString= queryvalue[1].replace(/[+]/g, ' ');
+                         obj[queryvalue[0]] = myString;
                     }else{
+                          var myString= queryvalue[1].replace(/[+]/g, ' ');
                           obj[queryvalue[0]] = queryvalue[1];
                     }
                    
@@ -210,8 +212,8 @@
                         io.emit('createMessage',sendMsg, function(){
                             msg.value= '';
                             event.target.innerText = 'Send Message';
-                            var x = document.getElementById("myAudio"); 
-                            x.play(); 
+                          var x = document.getElementById("myAudio"); 
+                           x.play(); 
                         });
                     }
                 });
