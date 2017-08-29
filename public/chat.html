@@ -191,7 +191,7 @@
                  for(var i=0;i<users.length;i++){
                     obj.appendChild(createUserListDom(users[i]));
                  }
-                console.log(users);
+               
              });
              window.onload = function(){
                  var params = getQueryString();
@@ -212,10 +212,13 @@
                         io.emit('createMessage',sendMsg, function(){
                             msg.value= '';
                             event.target.innerText = 'Send Message';
-                          var x = document.getElementById("myAudio"); 
-                           x.play(); 
+                        
                         });
                     }
+                });
+                io.on('playSound', function(){
+                    var x = document.getElementById("myAudio"); 
+                    x.play(); 
                 });
                 var sendFile =  getDomObject('attachedFile');
                 sendFile.addEventListener('change', function(event){

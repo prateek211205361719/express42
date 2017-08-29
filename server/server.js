@@ -60,6 +60,8 @@ socket_io.on('connection', function (socket) {
          var user = users.getUser(socket.id);
          console.log(user);
          socket.broadcast.to(user[0].room).emit('userMessage', createMessage(msg.from, msg.msg));
+         socket.broadcast.to(user[0].room).emit('playSound');
+         
          callback();
            
     });
